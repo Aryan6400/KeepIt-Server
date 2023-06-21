@@ -7,10 +7,7 @@ import cors from "cors";
 import session from "express-session";
 import passport from "passport";
 import passportLocalMongoose from "passport-local-mongoose";
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const findOrCreate = require("mongoose-findorcreate");
 
-// Local modules for routers and models..
 
 import { Note, User, TeamNote, TeamData } from "./models/user.js";
 import {register, login, logout} from "./authentication/auth.js";
@@ -40,18 +37,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/keeperDB", { useNewUrlParser: true }
   }).catch(error => {
     console.error('Error connecting to MongoDB:', error);
   });
-
-// passport.use(new GoogleStrategy({
-//   clientID: process.env.CLIENT_ID,
-//   clientSecret: process.env.CLIENT_SECRET,
-//   callbackURL: "http://localhost:8080/auth/google/Keep-It"
-// },
-// function(accessToken, refreshToken, profile, cb) {
-//   User.findOrCreate({ username: profile.id, name: profile.displayName}, function (err, user) {
-//     return cb(err, user);
-//   });
-// }
-// ));
 
 app.get("/", (req, res) => {
   Note.find({}).exec().then((foundNotes) => {
@@ -116,24 +101,6 @@ app.get("/signup", (req, res) => {
 
 app.post("/signup", register);
 app.post("/login", login);
-
-// app.get("/google-login", (req, res)=>{
-//   console.log("first redirect");
-//   res.redirect("/auth/google");
-// })
-
-// app.get("/auth/google", 
-//     passport.authenticate("google", {scope: ["profile"]})
-// );
-
-// app.get("/auth/google/Keep-It", 
-//     passport.authenticate("google", { failureRedirect: "http://localhost:3000/SignUp" }),
-//     function(req, res) {
-//       res.send({username: req.user.username, name: req.user.name});
-//       console.log("final redirect");
-//       // res.redirect("http://localhost:3000");
-//       // console.log();
-// });
 
 app.post("/createteam", createTeam);
 
