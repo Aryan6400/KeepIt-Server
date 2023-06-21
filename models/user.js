@@ -25,7 +25,6 @@ const noteSchema = new mongoose.Schema({
   })
   
   userSchema.plugin(passportLocalMongoose);
-  // userSchema.plugin(findOrCreate);
   
   const Note = mongoose.model("Note", noteSchema);
   const User = mongoose.model("User", userSchema);
